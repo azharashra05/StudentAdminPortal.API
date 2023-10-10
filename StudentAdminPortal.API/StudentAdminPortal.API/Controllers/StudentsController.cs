@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using StudentAdminPortal.API.DataModels;
 using StudentAdminPortal.API.DomainModels;
 using StudentAdminPortal.API.Repositories;
 
@@ -65,6 +66,13 @@ namespace StudentAdminPortal.API.Controllers
                 return Ok(mapper.Map<Student>(student));
             }
             return NotFound();
+        }
+        [HttpPost]
+        [Route("[controller]/Add")]
+        public async Task<IActionResult> AddStudentsAsync([FromBody] AddStudentRequest request)
+        {
+            var student=await studentRepository.AddStudent(mapper.Map<DataModels.Student>(request));
+            return CreatedAtAction
         }
     }
 }
